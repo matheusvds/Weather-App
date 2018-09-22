@@ -14,7 +14,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let todayViewController = TodayViewController()
+        let todayNavigationController = NavigationController(rootViewController: todayViewController)
+
+        let forecastViewController = ForecastViewController()
+        let forecastNavigationController = NavigationController(rootViewController: forecastViewController)
+
+        let tabBarController = TabBarController(with: [todayNavigationController, forecastNavigationController])
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = tabBarController
+        self.window = window
+        
+        window.makeKeyAndVisible()
         return true
     }
 
