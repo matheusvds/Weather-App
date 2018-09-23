@@ -41,7 +41,7 @@ class TabBarController: UITabBarController {
     
     private func setupAppearance() {
         self.tabBar.isTranslucent = true
-        self.tabBar.tintColor = .tabBarSelectedColor
-        self.tabBar.unselectedItemTintColor = .tabBarUnselectedColor
+        self.tabBar.tintColor = .blueThemeColor
+        self.tabBar.unselectedItemTintColor = .darkThemeColor
     }
 }

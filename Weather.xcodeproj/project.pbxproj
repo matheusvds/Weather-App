@@ -23,6 +23,13 @@
 		C6FE45FF2156F8A2006FA8D8 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE45FE2156F8A2006FA8D8 /* Weather.swift */; };
 		C6FE460121572D2A006FA8D8 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE460021572D2A006FA8D8 /* Forecast.swift */; };
 		C6FE460E21573E7F006FA8D8 /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE460D21573E7F006FA8D8 /* ViewCode.swift */; };
+		C6FE461021573EF8006FA8D8 /* TodayViewControllerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE460F21573EF8006FA8D8 /* TodayViewControllerScreen.swift */; };
+		C6FE46122157425D006FA8D8 /* WeatherGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE46112157425D006FA8D8 /* WeatherGroup.swift */; };
+		C6FE46172157FF98006FA8D8 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE46162157FF98006FA8D8 /* UILabel.swift */; };
+		C6FE461D2158014F006FA8D8 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6FE46192158014F006FA8D8 /* ProximaNova-Light.otf */; };
+		C6FE461E2158014F006FA8D8 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6FE461A2158014F006FA8D8 /* ProximaNova-Bold.otf */; };
+		C6FE461F2158014F006FA8D8 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6FE461B2158014F006FA8D8 /* ProximaNova-Regular.otf */; };
+		C6FE46202158014F006FA8D8 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6FE461C2158014F006FA8D8 /* ProximaNova-Semibold.otf */; };
 		F64BBFA0BC33AFEF9E42AF38 /* Pods_WeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB08BEBF6C8BC5F5B0825C3 /* Pods_WeatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +75,13 @@
 		C6FE45FE2156F8A2006FA8D8 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		C6FE460021572D2A006FA8D8 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		C6FE460D21573E7F006FA8D8 /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
+		C6FE460F21573EF8006FA8D8 /* TodayViewControllerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewControllerScreen.swift; sourceTree = "<group>"; };
+		C6FE46112157425D006FA8D8 /* WeatherGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGroup.swift; sourceTree = "<group>"; };
+		C6FE46162157FF98006FA8D8 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		C6FE46192158014F006FA8D8 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
+		C6FE461A2158014F006FA8D8 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		C6FE461B2158014F006FA8D8 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		C6FE461C2158014F006FA8D8 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
 		D97AA441F4104CD458DB2FA8 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		EAE278AE69D808D68A529BF4 /* Pods-WeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherUITests/Pods-WeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F15C9B6174209F53F4000BE4 /* Pods_WeatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +199,7 @@
 				C6FE45E22156BB36006FA8D8 /* Models */,
 				C6FE45E32156BB3E006FA8D8 /* Extensions */,
 				C6FE45E02156BB1E006FA8D8 /* Essentials */,
+				C6FE461821580135006FA8D8 /* Resources */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -201,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				C68E660721569975007032A2 /* AppDelegate.swift */,
+				C6FE45EA2156BFDC006FA8D8 /* Assets.swift */,
 				C68E660E21569976007032A2 /* Assets.xcassets */,
 				C68E661321569976007032A2 /* Info.plist */,
 			);
@@ -228,8 +244,8 @@
 		C6FE45E32156BB3E006FA8D8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C6FE45EA2156BFDC006FA8D8 /* Assets.swift */,
 				C6FE45FA2156D1DB006FA8D8 /* UIColor.swift */,
+				C6FE46162157FF98006FA8D8 /* UILabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				C6FE45F22156C88B006FA8D8 /* Controller */,
-				C6FE45F02156C87B006FA8D8 /* ViewModel */,
 				C6FE460B21573E49006FA8D8 /* View */,
 			);
 			path = Today;
@@ -247,18 +262,11 @@
 		C6FE45EF2156C863006FA8D8 /* Forecast */ = {
 			isa = PBXGroup;
 			children = (
+				C6FE4622215812FD006FA8D8 /* Datasource */,
 				C6FE45F32156C89E006FA8D8 /* Controller */,
-				C6FE45F52156C8B2006FA8D8 /* ViewModel */,
 				C6FE45F42156C8A3006FA8D8 /* View */,
 			);
 			path = Forecast;
-			sourceTree = "<group>";
-		};
-		C6FE45F02156C87B006FA8D8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C6FE45F22156C88B006FA8D8 /* Controller */ = {
@@ -284,16 +292,11 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C6FE45F52156C8B2006FA8D8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		C6FE460B21573E49006FA8D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C6FE460F21573EF8006FA8D8 /* TodayViewControllerScreen.swift */,
+				C6FE46112157425D006FA8D8 /* WeatherGroup.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -304,6 +307,32 @@
 				C6FE460D21573E7F006FA8D8 /* ViewCode.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C6FE461821580135006FA8D8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C6FE46212158016A006FA8D8 /* Font */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C6FE46212158016A006FA8D8 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				C6FE461A2158014F006FA8D8 /* ProximaNova-Bold.otf */,
+				C6FE46192158014F006FA8D8 /* ProximaNova-Light.otf */,
+				C6FE461B2158014F006FA8D8 /* ProximaNova-Regular.otf */,
+				C6FE461C2158014F006FA8D8 /* ProximaNova-Semibold.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		C6FE4622215812FD006FA8D8 /* Datasource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Datasource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,7 +445,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6FE461E2158014F006FA8D8 /* ProximaNova-Bold.otf in Resources */,
+				C6FE461F2158014F006FA8D8 /* ProximaNova-Regular.otf in Resources */,
+				C6FE46202158014F006FA8D8 /* ProximaNova-Semibold.otf in Resources */,
 				C68E660F21569976007032A2 /* Assets.xcassets in Resources */,
+				C6FE461D2158014F006FA8D8 /* ProximaNova-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,12 +621,15 @@
 			files = (
 				C68E660821569975007032A2 /* AppDelegate.swift in Sources */,
 				C6FE45FB2156D1DB006FA8D8 /* UIColor.swift in Sources */,
+				C6FE46172157FF98006FA8D8 /* UILabel.swift in Sources */,
 				C6FE45ED2156C3C0006FA8D8 /* TabBarController.swift in Sources */,
+				C6FE46122157425D006FA8D8 /* WeatherGroup.swift in Sources */,
 				C6FE45F92156C91D006FA8D8 /* TodayViewController.swift in Sources */,
 				C6FE460121572D2A006FA8D8 /* Forecast.swift in Sources */,
 				C6FE45FF2156F8A2006FA8D8 /* Weather.swift in Sources */,
 				C6FE45F72156C8E8006FA8D8 /* ForecastViewController.swift in Sources */,
 				C6FE45E92156BEA7006FA8D8 /* NavigationController.swift in Sources */,
+				C6FE461021573EF8006FA8D8 /* TodayViewControllerScreen.swift in Sources */,
 				C6FE460E21573E7F006FA8D8 /* ViewCode.swift in Sources */,
 				C6FE45EB2156BFDC006FA8D8 /* Assets.swift in Sources */,
 				C6FE45FD2156EDC1006FA8D8 /* OpenWeatherMap.swift in Sources */,

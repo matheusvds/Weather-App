@@ -11,7 +11,7 @@ import UIKit
 class TodayViewController: UIViewController {
 
     override func loadView() {
-        self.view = UIView()
+        self.view = TodayViewControllerScreen()
     }
     
 }
