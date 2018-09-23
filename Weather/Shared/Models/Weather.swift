@@ -9,15 +9,19 @@
 import Foundation
 
 struct Weather: Codable {
-    let weather: [Information]
+    let weather: [WeatherInfo]
     let main: Main
     let wind: Wind
     let dt: Int
-    let precipitation: Precipitation?
+    let rain: Rain?
 }
 
-struct Precipitation: Codable {
-    let value: Int?
+struct Rain: Codable {
+    let volume: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case volume = "3h"
+    }
 }
 
 struct Main: Codable {
@@ -26,7 +30,7 @@ struct Main: Codable {
     let humidity: Int
 }
 
-struct Information: Codable {
+struct WeatherInfo: Codable {
     let main: String
     let description: String
 }
