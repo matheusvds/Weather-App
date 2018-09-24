@@ -24,10 +24,10 @@ class TodayViewController: UIViewController {
             case .ready(let response):
                 let viewModel = TodayViewModel(with: response)
                 self.todayView.configureView(with: viewModel)
-                self.todayView.configureLoading(hiddingAll: true)
+                self.todayView.stopLoading()
 
             case .loading:
-                self.todayView.configureLoading(hiddingAll: true)
+                self.todayView.startLoading()
             case .error:
                 break
             }

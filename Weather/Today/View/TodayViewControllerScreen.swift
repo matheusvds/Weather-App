@@ -105,7 +105,9 @@ class TodayViewControllerScreen: UIView {
     
     lazy var loading: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         view.backgroundColor = .white
+        view.animationImages = getLoadingImages()
        return view
     }()
     
@@ -130,15 +132,32 @@ class TodayViewControllerScreen: UIView {
             self.weatherImage.image = model.icon.image
         }
     }
-    
-    func showLoading(hiddingAll: Bool) {
-        DispatchQueue.main.async {
-            self.show(hidden: hiddingAll)
+
+    func startLoading() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.bringSubviewToFront(self.loading)
+            self.loading.startAnimating()
         }
     }
     
-    func show(hidden: Bool) {
-        self.bringSubviewToFront(loading)
+    func stopLoading() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.sendSubviewToBack(self.loading)
+            self.loading.stopAnimating()
+        }
+    }
+    
+    fileprivate func getLoadingImages() -> [UIImage] {
+        var images = [UIImage]()
+        for index in 0...29 {
+            guard let image = UIImage(named: "loading\(index)") else {
+                break
+            }
+            images.append(image)
+        }
+        return images
     }
 }
 
