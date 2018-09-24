@@ -103,6 +103,12 @@ class TodayViewControllerScreen: UIView {
         return view
     }()
     
+    lazy var loading: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .white
+       return view
+    }()
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         setupView()
@@ -112,8 +118,27 @@ class TodayViewControllerScreen: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func addAction(target: Any, selector: Selector) {
-        self.shareButton.addTarget(target, action: selector, for: .touchUpInside)
+    func configureView(with model: TodayViewModel) {
+        DispatchQueue.main.async {
+            self.windDirection.label.text = model.windDirection
+            self.windSpeed.label.text = model.windSpeed
+            self.humidity.label.text = model.humidity
+            self.pressure.label.text = model.pressure
+            self.precipitation.label.text = model.rainVolume
+            self.temperatureLabel.text = model.temperature
+            self.weatherImage.tintColor = model.icon.tintColor
+            self.weatherImage.image = model.icon.image
+        }
+    }
+    
+    func showLoading(hiddingAll: Bool) {
+        DispatchQueue.main.async {
+            self.show(hidden: hiddingAll)
+        }
+    }
+    
+    func show(hidden: Bool) {
+        self.bringSubviewToFront(loading)
     }
 }
 
@@ -132,6 +157,7 @@ extension TodayViewControllerScreen: ViewCode {
         self.addSubview(windDirection)
         self.addSubview(bottomDivider)
         self.addSubview(shareButton)
+        self.addSubview(loading)
     }
     
     func setupConstraints() {
@@ -145,6 +171,10 @@ extension TodayViewControllerScreen: ViewCode {
         let localizationLabelHeight = 22
         let localizationIconSize = 12
         let localizationIconRightOffset = -20
+        
+        loading.snp.makeConstraints { (make) in
+            make.top.bottom.left.right.equalTo(self)
+        }
         
         topDivider.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)

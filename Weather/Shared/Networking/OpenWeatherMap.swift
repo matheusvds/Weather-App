@@ -9,9 +9,9 @@
 import Foundation
 import Moya
 
+public typealias Location = (lat: String, lon: String)
 public enum OpenWeatherMap {
     static fileprivate let apiKey = "ec4718acf29c48ebd3a2eb40852b27d4"
-    public typealias Location = (lat: String, lon: String)
 
     case current(_ location: Location)
     case forecast(_ location: Location)
