@@ -111,6 +111,11 @@ class TodayViewControllerScreen: UIView {
        return view
     }()
     
+    lazy var errorView: ErrorView = {
+       let error = ErrorView()
+        return error
+    }()
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         setupView()
@@ -136,7 +141,7 @@ class TodayViewControllerScreen: UIView {
     func startLoading() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.bringSubviewToFront(self.loading)
+            self.bringSubviewToFront(self.errorView)
             self.loading.startAnimating()
         }
     }
@@ -144,7 +149,7 @@ class TodayViewControllerScreen: UIView {
     func stopLoading() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.sendSubviewToBack(self.loading)
+            self.sendSubviewToBack(self.errorView)
             self.loading.stopAnimating()
         }
     }
@@ -177,6 +182,7 @@ extension TodayViewControllerScreen: ViewCode {
         self.addSubview(bottomDivider)
         self.addSubview(shareButton)
         self.addSubview(loading)
+        self.addSubview(errorView)
     }
     
     func setupConstraints() {
@@ -192,6 +198,10 @@ extension TodayViewControllerScreen: ViewCode {
         let localizationIconRightOffset = -20
         
         loading.snp.makeConstraints { (make) in
+            make.top.bottom.left.right.equalTo(self)
+        }
+        
+        errorView.snp.makeConstraints { (make) in
             make.top.bottom.left.right.equalTo(self)
         }
         

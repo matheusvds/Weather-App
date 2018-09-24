@@ -14,7 +14,7 @@ class TodayViewController: UIViewController {
     enum State {
         case loading
         case ready(Weather)
-        case error
+        case error(WeatherError)
     }
 
     // MARK: - View State
@@ -24,7 +24,7 @@ class TodayViewController: UIViewController {
             case .ready(let response):
                 let viewModel = TodayViewModel(with: response)
                 self.todayView.configureView(with: viewModel)
-                self.todayView.stopLoading()
+                //self.todayView.stopLoading()
 
             case .loading:
                 self.todayView.startLoading()
@@ -65,10 +65,10 @@ class TodayViewController: UIViewController {
                     let response = try response.map(Weather.self)
                     self.state = .ready(response)
                 } catch {
-                    self.state = .error
+                    self.state = .error(.unkown)
                 }
-            case .failure:
-                self.state = .error
+            case .failure(let error):
+                self.state = .error(WeatherError(error: error))
             }
         }
     }

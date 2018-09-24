@@ -34,6 +34,10 @@ enum Assets: String {
     case todaySnowTopIcon
     case todayThunderstormTopIcon
     
+    //Error
+    case InternetErrorImage
+    case LocationErrorImage
+    
     var image: UIImage? {
         return UIImage(named: self.rawValue)
     }
