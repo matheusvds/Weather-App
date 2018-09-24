@@ -21,6 +21,7 @@ struct TodayViewModel {
     var temperature: String = "-"
     var icon: UIImageView = UIImageView(frame: .zero)
     var date: Date = Date()
+    var errorView: UIImage? = Assets.internetErrorImage.image
     
     init(with data: Weather) {
         self.windSpeed = self.format(speed: data.wind.speed)
@@ -33,6 +34,17 @@ struct TodayViewModel {
         self.temperature = self.format(temperature: data.main.temp, with: data.weather)
         self.date = self.format(date: data.dt)
         self.icon = find(iconIn: data.weather)
+    }
+    
+    init(with error: WeatherError) {
+        switch error {
+        case .internet:
+            self.errorView = Assets.internetErrorImage.image
+        case .localization:
+            self.errorView = Assets.locationErrorImage.image
+        case .unkown:
+            self.errorView = Assets.unkownErrorImage.image
+        }
     }
     
     fileprivate func find(iconIn weatherInfo: [WeatherInfo]) -> UIImageView {

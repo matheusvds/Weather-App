@@ -24,12 +24,15 @@ class TodayViewController: UIViewController {
             case .ready(let response):
                 let viewModel = TodayViewModel(with: response)
                 self.todayView.configureView(with: viewModel)
-                //self.todayView.stopLoading()
+                self.todayView.stopLoading()
 
             case .loading:
                 self.todayView.startLoading()
-            case .error:
-                break
+                
+            case .error(let error):
+                let errorModel = TodayViewModel(with: .internet)
+                self.todayView.configureView(withError: errorModel)
+                self.todayView.stopLoading()
             }
         }
     }
@@ -53,11 +56,16 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         requestData()
     }
     
+    func setup() {
+        self.todayView.errorView.delegate = self
+    }
+    
     func requestData() {
-        provider.request(.current((lat: "33.75", lon: "112.68"))) { [weak self] result in
+        provider.request(.current((lat: "", lon: ""))) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -71,5 +79,11 @@ class TodayViewController: UIViewController {
                 self.state = .error(WeatherError(error: error))
             }
         }
+    }
+}
+
+extension TodayViewController: ErrorViewDelegate {
+    func refreshButtonTapped() {
+        print("button tapped")
     }
 }

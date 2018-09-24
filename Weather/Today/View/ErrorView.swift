@@ -9,18 +9,26 @@
 import UIKit
 import SnapKit
 
+protocol ErrorViewDelegate: class {
+    func refreshButtonTapped()
+}
+
 class ErrorView: UIView {
+    
+    weak var delegate: ErrorViewDelegate?
     
     lazy var background: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = Assets.LocationErrorImage.image
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
     lazy var button: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "Press here"
+        button.setTitle("Refresh", for: .normal)
+        button.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
+        button.setTitleColor(.orangeThemeColor, for: .normal)
+        button.setTitleColor(.blueThemeColor, for: UIControl.State.highlighted)
         return button
     }()
     
@@ -31,6 +39,11 @@ class ErrorView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc
+    func buttonAction() {
+        self.delegate?.refreshButtonTapped()
     }
 }
 
@@ -49,7 +62,13 @@ extension ErrorView: ViewCode {
         button.snp.makeConstraints { (make) in
             make.height.width.equalTo(button)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().multipliedBy(1.3)
+            make.bottom.equalToSuperview().multipliedBy(0.87)
         }
+    }
+    
+    func setupAdditionalConfiguration() {
+        self.backgroundColor = .white
+        self.bringSubviewToFront(button)
+        self.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
     }
 }

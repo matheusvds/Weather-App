@@ -99,6 +99,7 @@ class TodayViewControllerScreen: UIView {
         let view = UIButton()
         view.setTitle("Share", for: .normal)
         view.setTitleColor(.orangeThemeColor, for: .normal)
+        view.setTitleColor(.blueThemeColor, for: .selected)
         view.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
         return view
     }()
@@ -137,11 +138,19 @@ class TodayViewControllerScreen: UIView {
             self.weatherImage.image = model.icon.image
         }
     }
+    
+    func configureView(withError model: TodayViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.errorView.background.image = model.errorView
+            self.bringSubviewToFront(self.errorView)
+        }
+    }
 
     func startLoading() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.bringSubviewToFront(self.errorView)
+            self.bringSubviewToFront(self.loading)
             self.loading.startAnimating()
         }
     }
@@ -149,8 +158,8 @@ class TodayViewControllerScreen: UIView {
     func stopLoading() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.sendSubviewToBack(self.errorView)
             self.loading.stopAnimating()
+            self.sendSubviewToBack(self.loading)
         }
     }
     
