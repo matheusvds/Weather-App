@@ -123,8 +123,6 @@ extension TodayViewController: CLLocationManagerDelegate {
     func findCityFor(location: CLLocation, completion: @escaping (String) -> ()) {
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {[weak self] (placemarks, error) in
             guard let self = self else { return }
-            print(placemarks)
-            print(error)
             completion(self.viewModel.getLocationFor(placemarks: placemarks, with: error))
         })
     }
