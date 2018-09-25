@@ -90,14 +90,27 @@ class TodayViewController: UIViewController {
             }
         }
     }
+    
+    func snapshot(targetView: UIView) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: targetView.bounds.size)
+        let image = renderer.image { ctx in
+            view.drawHierarchy(in: targetView.bounds, afterScreenUpdates: true)
+        }
+        return image
+    }
 }
 
-//MARK: - ErrorView Delegate
-extension TodayViewController: ErrorViewDelegate {
+//MARK: - ErrorView, TodayView Delegates
+extension TodayViewController: ErrorViewDelegate, TodayViewDelegate {
     func refreshButtonTapped() {
         setup()
         startRequestingLocation()
     }
+    
+    func shareButtonTapped() {
+        let snapshot = self.snapshot(targetView: self.todayView)
+        let activity = UIActivityViewController(activityItems: [snapshot], applicationActivities: nil)
+        self.present(activity, animated: true, completion: nil)
     }
     
     func requestLocationSettings() {
