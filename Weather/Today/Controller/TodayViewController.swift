@@ -114,8 +114,11 @@ extension TodayViewController: CLLocationManagerDelegate {
     
     func startRequestingLocation() {
         if CLLocationManager.locationServicesEnabled() {
+            self.state = .loading
             self.locationManager.startUpdatingLocation()
+            return
         }
+        self.state = .error(.location)
     }
     
     func stopRequestingLocation() {
