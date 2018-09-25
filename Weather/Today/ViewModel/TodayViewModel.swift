@@ -52,14 +52,6 @@ struct TodayViewModel {
         }
     }
     
-    func getLocationFor(placemarks: [CLPlacemark]?, with error: Error?) -> String {
-        guard let country = placemarks?.first?.country,
-              let city = placemarks?.first?.locality, error == nil else {
-            return "Couldn't find your location"
-        }
-        return "\(city.capitalized), \(country.capitalized)"
-    }
-    
     fileprivate func find(iconIn weatherInfo: [WeatherInfo]) -> UIImageView {
         let name = self.format(iconName: weatherInfo)
         guard let imageView = WeatherKind(rawValue: String(name.dropLast()))?.imageView else {
