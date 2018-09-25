@@ -9,7 +9,13 @@
 import UIKit
 import SnapKit
 
+protocol TodayViewDelegate: class {
+    func shareButtonTapped()
+}
+
 class TodayViewControllerScreen: UIView {
+    
+    weak var delegate: TodayViewDelegate?
 
     lazy var topDivider: UIImageView = {
         let view = UIImageView()
@@ -167,6 +173,10 @@ class TodayViewControllerScreen: UIView {
     
     func setLocation(_ name: String) {
         self.localizationLabel.text = name
+    }
+    
+    @objc func shareButtonAction() {
+        self.delegate?.shareButtonTapped()
     }
     
     fileprivate func getLoadingImages() -> [UIImage] {
@@ -327,6 +337,7 @@ extension TodayViewControllerScreen: ViewCode {
     func setupAdditionalConfiguration() {
         self.backgroundColor = .white
         self.sendSubviewToBack(self.errorView)
+        self.shareButton.addTarget(self, action: #selector(shareButtonAction), for: .touchUpInside)
     }
     
     fileprivate func getMultiplierByScreenSize() -> CGFloat {
