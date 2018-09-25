@@ -30,7 +30,7 @@ class TodayViewController: UIViewController {
                 self.todayView.startLoading()
                 
             case .error(let error):
-                let errorModel = TodayViewModel(with: .internet)
+                let errorModel = TodayViewModel(with: error)
                 self.todayView.configureView(withError: errorModel)
                 self.todayView.stopLoading()
             }
