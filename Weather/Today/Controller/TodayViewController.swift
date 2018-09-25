@@ -71,6 +71,7 @@ class TodayViewController: UIViewController {
     func setupDelegates() {
         self.todayView.errorView.delegate = self
         self.locationManager.delegate = self
+        self.todayView.delegate = self
     }
     
     func requestData(with location: Location) {
@@ -94,7 +95,9 @@ class TodayViewController: UIViewController {
 //MARK: - ErrorView Delegate
 extension TodayViewController: ErrorViewDelegate {
     func refreshButtonTapped() {
-        print("button tapped")
+        setup()
+        startRequestingLocation()
+    }
     }
     
     func requestLocationSettings() {
@@ -130,9 +133,10 @@ extension TodayViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.state = .loading
             self.startRequestingLocation()
+            
         default:
+            self.state = .loading
             self.state = .error(.location)
             manager.stopUpdatingLocation()
         }
