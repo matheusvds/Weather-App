@@ -55,7 +55,7 @@ class ErrorView: UIView {
         button.setTitle("Refresh", for: .normal)
         button.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
         button.setTitleColor(.orangeThemeColor, for: .normal)
-        button.setTitleColor(.blueThemeColor, for: UIControl.State.highlighted)
+        button.setTitleColor(.blueThemeColor, for: .highlighted)
     }
     
     @objc
