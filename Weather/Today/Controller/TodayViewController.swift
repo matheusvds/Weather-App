@@ -42,7 +42,7 @@ class TodayViewController: UIViewController {
     let provider: MoyaProvider<OpenWeatherMap>
     let todayView = TodayViewControllerScreen()
     var bestEffortLocation: CLLocation?
-    var locationManager = CLLocationManager()
+    var locationManager = LocationManager()
 
     init(provider: MoyaProvider<OpenWeatherMap> = MoyaProvider<OpenWeatherMap>()) {
         self.provider = provider
@@ -65,7 +65,7 @@ class TodayViewController: UIViewController {
     
     func setup() {
         setupDelegates()
-        configureLocation()
+        self.locationManager.configureLocation()
     }
     
     func setupDelegates() {
@@ -104,7 +104,7 @@ class TodayViewController: UIViewController {
 extension TodayViewController: ErrorViewDelegate, TodayViewDelegate {
     func refreshButtonTapped() {
         setup()
-        startRequestingLocation()
+        self.locationManager.startRequestingLocation()
     }
     
     func shareButtonTapped() {
@@ -119,73 +119,25 @@ extension TodayViewController: ErrorViewDelegate, TodayViewDelegate {
 }
 
 //MARK: - CLLocationManager Delegate
-extension TodayViewController: CLLocationManagerDelegate {
-    func configureLocation() {
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        self.locationManager.requestWhenInUseAuthorization()
+extension TodayViewController: LocationManagerDelegate {
+    func didStartLoadingLocation() {
+        self.state = .loading
     }
     
-    func startRequestingLocation() {
-        if CLLocationManager.locationServicesEnabled() {
-            self.state = .loading
-            self.locationManager.startUpdatingLocation()
+    func didEndLoadingLocation(with error: WeatherError) {
+        self.state = .error(error)
+    }
+    
+    func didFound(city: String?, inCountry country: String?) {
+        guard let city = city, let country = country else {
+            self.todayView.setLocation("Couldn't find your location")
             return
         }
-        self.state = .error(.location)
+        self.todayView.setLocation("\(city), \(country)")
     }
     
-    func stopRequestingLocation() {
-        self.locationManager.stopUpdatingLocation()
-        self.locationManager.delegate = nil
-    }
-    
-    func findCityFor(location: CLLocation, completion: @escaping (String) -> ()) {
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {[weak self] (placemarks, error) in
-            guard let self = self else { return }
-            completion(self.viewModel.getLocationFor(placemarks: placemarks, with: error))
-        })
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            self.startRequestingLocation()
-            
-        default:
-            self.state = .loading
-            self.state = .error(.location)
-            manager.stopUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last else { return }
-        let locationAge = newLocation.timestamp.timeIntervalSinceNow
-        //Avoids cached locations
-        if locationAge > 5.0 { return }
-        
-        //Avoids invalid measurements
-        if newLocation.horizontalAccuracy < 0 { return }
-        
-        if(self.bestEffortLocation == nil) {
-            self.bestEffortLocation = newLocation
-        }
-        
-        guard let bestEffort = self.bestEffortLocation else { return }
-        
-        if(bestEffort.horizontalAccuracy >= newLocation.horizontalAccuracy) {
-            self.bestEffortLocation = newLocation
-
-            if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
-                self.stopRequestingLocation()
-                self.findCityFor(location: newLocation) { (name) in
-                    self.todayView.setLocation(name)
-                    let location: Location = (lat: newLocation.coordinate.latitude.asString,
-                                              lon: newLocation.coordinate.longitude.asString)
-                    self.requestData(with: location)
-                }
-            }
-        }
+    func didFinishLocationRequesting(with location: Location) {
+        self.requestData(with: location)
     }
 }
 
