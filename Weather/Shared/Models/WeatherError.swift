@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum WeatherError: Error {
-    case localization
+    case location
     case internet
     case unkown
     

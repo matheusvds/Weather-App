@@ -11,6 +11,11 @@ import SnapKit
 
 protocol ErrorViewDelegate: class {
     func refreshButtonTapped()
+    func requestLocationSettings()
+}
+
+extension ErrorViewDelegate {
+    func requestLocation() {}
 }
 
 class ErrorView: UIView {
@@ -25,14 +30,18 @@ class ErrorView: UIView {
     
     lazy var button: UIButton = {
         let button = UIButton()
-        button.setTitle("Refresh", for: .normal)
-        button.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
-        button.setTitleColor(.orangeThemeColor, for: .normal)
-        button.setTitleColor(.blueThemeColor, for: UIControl.State.highlighted)
         return button
     }()
     
-    override init(frame: CGRect = .zero) {
+    var errorKind: WeatherError {
+        didSet {
+            let title = errorKind == .location ? "Request location" : "Refresh"
+            button.setTitle(title, for: .normal)
+        }
+    }
+    
+    init(frame: CGRect = .zero, errorKind: WeatherError = .unkown) {
+        self.errorKind = errorKind
         super.init(frame: frame)
         setupView()
     }
@@ -41,9 +50,22 @@ class ErrorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureButton() {
+        self.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.setTitle("Refresh", for: .normal)
+        button.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
+        button.setTitleColor(.orangeThemeColor, for: .normal)
+        button.setTitleColor(.blueThemeColor, for: UIControl.State.highlighted)
+    }
+    
     @objc
     func buttonAction() {
-        self.delegate?.refreshButtonTapped()
+        switch self.errorKind {
+        case .location:
+            self.delegate?.requestLocationSettings()
+        default:
+            self.delegate?.refreshButtonTapped()
+        }
     }
 }
 
@@ -55,7 +77,7 @@ extension ErrorView: ViewCode {
     
     func setupConstraints() {
         background.snp.makeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalToSuperview()
             make.left.right.bottom.equalToSuperview()
         }
         
@@ -67,8 +89,7 @@ extension ErrorView: ViewCode {
     }
     
     func setupAdditionalConfiguration() {
+        configureButton()
         self.backgroundColor = .white
-        self.bringSubviewToFront(button)
-        self.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
     }
 }

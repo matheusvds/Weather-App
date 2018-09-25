@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 import UIKit
 
 struct TodayViewModel {
@@ -21,7 +22,10 @@ struct TodayViewModel {
     var temperature: String = "-"
     var icon: UIImageView = UIImageView(frame: .zero)
     var date: Date = Date()
-    var errorView: UIImage? = Assets.internetErrorImage.image
+    var errorViewImage: UIImage? = Assets.internetErrorImage.image
+    var errorKind: WeatherError?
+    
+    init() {}
     
     init(with data: Weather) {
         self.windSpeed = self.format(speed: data.wind.speed)
@@ -37,14 +41,23 @@ struct TodayViewModel {
     }
     
     init(with error: WeatherError) {
+        self.errorKind = error
         switch error {
         case .internet:
-            self.errorView = Assets.internetErrorImage.image
-        case .localization:
-            self.errorView = Assets.locationErrorImage.image
+            self.errorViewImage = Assets.internetErrorImage.image
+        case .location:
+            self.errorViewImage = Assets.locationErrorImage.image
         case .unkown:
-            self.errorView = Assets.unkownErrorImage.image
+            self.errorViewImage = Assets.unkownErrorImage.image
         }
+    }
+    
+    func getLocationFor(placemarks: [CLPlacemark]?, with error: Error?) -> String {
+        guard let country = placemarks?.first?.country,
+              let city = placemarks?.first?.locality, error == nil else {
+            return "Couldn't find your location"
+        }
+        return "\(city.capitalized), \(country.capitalized)"
     }
     
     fileprivate func find(iconIn weatherInfo: [WeatherInfo]) -> UIImageView {

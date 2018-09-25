@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import CoreLocation
 
 class TodayViewController: UIViewController {
     
@@ -23,8 +24,8 @@ class TodayViewController: UIViewController {
             switch state {
             case .ready(let response):
                 let viewModel = TodayViewModel(with: response)
-                self.todayView.configureView(with: viewModel)
                 self.todayView.stopLoading()
+                self.todayView.configureView(with: viewModel)
 
             case .loading:
                 self.todayView.startLoading()
@@ -37,9 +38,12 @@ class TodayViewController: UIViewController {
         }
     }
     
+    let viewModel = TodayViewModel()
     let provider: MoyaProvider<OpenWeatherMap>
     let todayView = TodayViewControllerScreen()
-    
+    var bestEffortLocation: CLLocation?
+    var locationManager = CLLocationManager()
+
     init(provider: MoyaProvider<OpenWeatherMap> = MoyaProvider<OpenWeatherMap>()) {
         self.provider = provider
         super.init(nibName: nil, bundle: nil)
@@ -57,15 +61,20 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        requestData()
     }
     
     func setup() {
-        self.todayView.errorView.delegate = self
+        setupDelegates()
+        configureLocation()
     }
     
-    func requestData() {
-        provider.request(.current((lat: "", lon: ""))) { [weak self] result in
+    func setupDelegates() {
+        self.todayView.errorView.delegate = self
+        self.locationManager.delegate = self
+    }
+    
+    func requestData(with location: Location) {
+        provider.request(.current(location)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -82,8 +91,83 @@ class TodayViewController: UIViewController {
     }
 }
 
+//MARK: - ErrorView Delegate
 extension TodayViewController: ErrorViewDelegate {
     func refreshButtonTapped() {
         print("button tapped")
     }
+    
+    func requestLocationSettings() {
+        self.showSettingsAlert()
+    }
 }
+
+//MARK: - CLLocationManager Delegate
+extension TodayViewController: CLLocationManagerDelegate {
+    func configureLocation() {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func startRequestingLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func stopRequestingLocation() {
+        self.locationManager.stopUpdatingLocation()
+        self.locationManager.delegate = nil
+    }
+    
+    func findCityFor(location: CLLocation, completion: @escaping (String) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {[weak self] (placemarks, error) in
+            guard let self = self else { return }
+            print(placemarks)
+            print(error)
+            completion(self.viewModel.getLocationFor(placemarks: placemarks, with: error))
+        })
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            self.state = .loading
+            self.startRequestingLocation()
+        default:
+            self.state = .error(.location)
+            manager.stopUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else { return }
+        let locationAge = newLocation.timestamp.timeIntervalSinceNow
+        //Avoids cached locations
+        if locationAge > 5.0 { return }
+        
+        //Avoids invalid measurements
+        if newLocation.horizontalAccuracy < 0 { return }
+        
+        if(self.bestEffortLocation == nil) {
+            self.bestEffortLocation = newLocation
+        }
+        
+        guard let bestEffort = self.bestEffortLocation else { return }
+        
+        if(bestEffort.horizontalAccuracy >= newLocation.horizontalAccuracy) {
+            self.bestEffortLocation = newLocation
+
+            if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
+                self.stopRequestingLocation()
+                self.findCityFor(location: newLocation) { (name) in
+                    self.todayView.setLocation(name)
+                    let location: Location = (lat: newLocation.coordinate.latitude.asString,
+                                              lon: newLocation.coordinate.longitude.asString)
+                    self.requestData(with: location)
+                }
+            }
+        }
+    }
+}
+

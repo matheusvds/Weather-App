@@ -142,8 +142,9 @@ class TodayViewControllerScreen: UIView {
     func configureView(withError model: TodayViewModel) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.errorView.background.image = model.errorView
-            self.bringSubviewToFront(self.errorView)
+            self.errorView.background.image = model.errorViewImage
+            self.errorView.errorKind = model.errorKind ?? .unkown
+            self.addErrorView()
         }
     }
 
@@ -151,6 +152,7 @@ class TodayViewControllerScreen: UIView {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.bringSubviewToFront(self.loading)
+            self.errorView.removeFromSuperview()
             self.loading.startAnimating()
         }
     }
@@ -161,6 +163,10 @@ class TodayViewControllerScreen: UIView {
             self.loading.stopAnimating()
             self.sendSubviewToBack(self.loading)
         }
+    }
+    
+    func setLocation(_ name: String) {
+        self.localizationLabel.text = name
     }
     
     fileprivate func getLoadingImages() -> [UIImage] {
@@ -191,7 +197,6 @@ extension TodayViewControllerScreen: ViewCode {
         self.addSubview(bottomDivider)
         self.addSubview(shareButton)
         self.addSubview(loading)
-        self.addSubview(errorView)
     }
     
     func setupConstraints() {
@@ -207,10 +212,6 @@ extension TodayViewControllerScreen: ViewCode {
         let localizationIconRightOffset = -20
         
         loading.snp.makeConstraints { (make) in
-            make.top.bottom.left.right.equalTo(self)
-        }
-        
-        errorView.snp.makeConstraints { (make) in
             make.top.bottom.left.right.equalTo(self)
         }
         
@@ -305,8 +306,28 @@ extension TodayViewControllerScreen: ViewCode {
         }
     }
     
+    func addErrorView() {
+        self.addSubview(self.errorView)
+        errorView.snp.remakeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func configureErrorView() {
+        errorView.snp.remakeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
     func setupAdditionalConfiguration() {
         self.backgroundColor = .white
+        self.sendSubviewToBack(self.errorView)
     }
     
     fileprivate func getMultiplierByScreenSize() -> CGFloat {
