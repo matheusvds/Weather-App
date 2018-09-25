@@ -27,8 +27,14 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.delegate = self
     }
     
+    func configureLocation() {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        self.locationManager.requestWhenInUseAuthorization()
+    }
+    
     func startRequestingLocation() {
         if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.delegate = self
             self.delegate?.didStartLoadingLocation()
             self.locationManager.startUpdatingLocation()
             return
