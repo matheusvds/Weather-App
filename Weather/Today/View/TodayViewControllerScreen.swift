@@ -99,7 +99,7 @@ class TodayViewControllerScreen: UIView {
         let view = UIButton()
         view.setTitle("Share", for: .normal)
         view.setTitleColor(.orangeThemeColor, for: .normal)
-        view.setTitleColor(.blueThemeColor, for: .selected)
+        view.setTitleColor(.blueThemeColor, for: .highlighted)
         view.titleLabel?.setDefaultFont(size: 18.0, weight: .semibold)
         return view
     }()
