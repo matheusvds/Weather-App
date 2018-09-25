@@ -13,7 +13,7 @@ class TodayViewControllerScreen: UIView {
 
     lazy var topDivider: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         view.image = Assets.topSeparatorImage.image
         return view
     }()
@@ -202,7 +202,6 @@ extension TodayViewControllerScreen: ViewCode {
     func setupConstraints() {
         
         //Constants
-        let topDividerHeight = 2
         let weatherImageSize = 100
         let topOffsetMultiplier = getMultiplierByScreenSize()
         let localizationLabelTopOffset = 15
@@ -218,7 +217,7 @@ extension TodayViewControllerScreen: ViewCode {
         topDivider.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
-            make.height.equalTo(topDividerHeight)
+            make.height.equalTo(topDivider.snp.height)
         }
         
         weatherImage.snp.makeConstraints { (make) in
