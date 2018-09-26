@@ -16,11 +16,13 @@ protocol LocationManagerDelegate: class {
     func didFinishLocationRequesting(with location: Location)
 }
 
+extension LocationManagerDelegate {
+    func didFound(city: String?, inCountry country: String?) {}
+}
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     weak var delegate: LocationManagerDelegate?
     var bestEffortLocation: CLLocation?
-    var locationManager = CLLocationManager()
     
     override init() {
         super.init()
