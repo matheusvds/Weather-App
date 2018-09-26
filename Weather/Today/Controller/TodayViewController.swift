@@ -91,6 +91,17 @@ class TodayViewController: UIViewController {
         }
         return image
     }
+    
+    func setForecastViewController(title: String) {
+       let navigation = self.tabBarController?.viewControllers?.first(where: { (element) -> Bool in
+            let navigation = element as? UINavigationController
+            let vc = navigation?.viewControllers.first as? TodayViewController
+            return vc == nil
+        })
+        
+        let forecastNav = navigation as? UINavigationController
+        forecastNav?.visibleViewController?.title = title
+    }
 }
 
 //MARK: - ErrorView, TodayView Delegates
@@ -125,6 +136,7 @@ extension TodayViewController: LocationManagerDelegate {
             self.todayView.setLocation("Couldn't find your location")
             return
         }
+        self.setForecastViewController(title: city)
         self.todayView.setLocation("\(city), \(country)")
     }
     
