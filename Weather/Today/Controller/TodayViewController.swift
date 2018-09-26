@@ -11,15 +11,9 @@ import Moya
 import CoreLocation
 
 class TodayViewController: UIViewController {
-    
-    enum State {
-        case loading
-        case ready(Weather)
-        case error(WeatherError)
-    }
 
     // MARK: - View State
-    private var state: State = .loading {
+    private var state: State<Weather> = .loading {
         didSet {
             switch state {
             case .ready(let response):
@@ -65,7 +59,6 @@ class TodayViewController: UIViewController {
     
     func setup() {
         setupDelegates()
-        self.locationManager.configureLocation()
     }
     
     func setupDelegates() {
@@ -103,7 +96,6 @@ class TodayViewController: UIViewController {
 //MARK: - ErrorView, TodayView Delegates
 extension TodayViewController: ErrorViewDelegate, TodayViewDelegate {
     func refreshButtonTapped() {
-        setup()
         self.locationManager.startRequestingLocation()
     }
     
