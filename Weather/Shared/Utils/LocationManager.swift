@@ -23,18 +23,20 @@ extension LocationManagerDelegate {
 class LocationManager: NSObject, CLLocationManagerDelegate {
     weak var delegate: LocationManagerDelegate?
     var bestEffortLocation: CLLocation?
+    private var locationManager = CLLocationManager()
     
     override init() {
         super.init()
         self.locationManager.delegate = self
     }
     
-    func configureLocation() {
+    fileprivate func configureLocation() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         self.locationManager.requestWhenInUseAuthorization()
     }
     
     func startRequestingLocation() {
+        configureLocation()
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.delegate = self
             self.delegate?.didStartLoadingLocation()
@@ -49,14 +51,14 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.delegate = nil
     }
     
-    func findCityFor(location: CLLocation, completion: @escaping () -> ()) {
+    fileprivate func findCityFor(location: CLLocation, completion: @escaping () -> ()) {
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
             self.getLocationFor(placemarks: placemarks, with: error)
             completion()
         })
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    fileprivate func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             self.startRequestingLocation()
@@ -68,7 +70,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+   fileprivate func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
         let locationAge = newLocation.timestamp.timeIntervalSinceNow
         //Avoids cached locations
