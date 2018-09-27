@@ -38,7 +38,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func startRequestingLocation() {
         configureLocation()
         if CLLocationManager.locationServicesEnabled() {
-            self.locationManager.delegate = self
             self.delegate?.didStartLoadingLocation()
             self.locationManager.startUpdatingLocation()
             return
@@ -58,7 +57,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         })
     }
     
-    fileprivate func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             self.startRequestingLocation()
@@ -70,7 +69,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-   fileprivate func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
         let locationAge = newLocation.timestamp.timeIntervalSinceNow
         //Avoids cached locations
