@@ -28,6 +28,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         self.locationManager.delegate = self
+        self.configureLocation()
     }
     
     fileprivate func configureLocation() {
@@ -37,6 +38,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func startRequestingLocation() {
         configureLocation()
+        
         if CLLocationManager.locationServicesEnabled() {
             self.delegate?.didStartLoadingLocation()
             self.locationManager.delegate = self
@@ -45,6 +47,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
         self.delegate?.didEndLoadingLocation(with: .location)
     }
+    
+    
     
     func stopRequestingLocation() {
         self.locationManager.stopUpdatingLocation()
@@ -58,7 +62,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         })
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    fileprivate func check(_ status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             self.startRequestingLocation()
@@ -66,8 +70,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         default:
             self.delegate?.didStartLoadingLocation()
             self.delegate?.didEndLoadingLocation(with: .location)
-            manager.stopUpdatingLocation()
+            self.locationManager.stopUpdatingLocation()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        check(status)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

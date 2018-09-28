@@ -312,15 +312,6 @@ extension TodayViewControllerScreen: ViewCode {
         }
     }
     
-    func configureErrorView() {
-        errorView.snp.remakeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.height.equalToSuperview()
-            make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
     func setupAdditionalConfiguration() {
         self.backgroundColor = .white
         self.sendSubviewToBack(self.errorView)

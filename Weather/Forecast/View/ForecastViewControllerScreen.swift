@@ -28,6 +28,11 @@ class ForecastViewControllerScreen: UIView {
         return view
     }()
     
+    lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        return error
+    }()
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         setupView()
@@ -37,10 +42,21 @@ class ForecastViewControllerScreen: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func configureView(withError model: ForecastViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.errorView.background.image = model.errorViewImage
+            self.errorView.errorKind = model.errorKind ?? .unkown
+            self.addErrorView()
+        }
+    }
+    
     func startLoading() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.bringSubviewToFront(self.loading)
+           // self.errorView.removeFromSuperview()
             self.loading.startAnimating()
         }
     }
@@ -77,6 +93,16 @@ extension ForecastViewControllerScreen: ViewCode {
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.left.right.bottom.equalToSuperview()
+        }
+    }
+    
+    func addErrorView() {
+        self.addSubview(self.errorView)
+        errorView.snp.remakeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     

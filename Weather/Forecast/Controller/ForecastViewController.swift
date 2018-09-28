@@ -18,11 +18,14 @@ class ForecastViewController: UIViewController {
                 let model = ForecastViewModel(data: forecast)
                 self.forecastDatasource?.reloadData(with: model)
                 self.forecastView.stopLoading()
+                
             case .loading:
                 self.forecastView.startLoading()
                 
             case .error(let error):
-                print(error)
+               let errorModel = ForecastViewModel(with: error)
+               self.forecastView.stopLoading()
+               self.forecastView.configureView(withError: errorModel)
                 break
             }
         }
@@ -54,6 +57,7 @@ class ForecastViewController: UIViewController {
     
     func setup() {
         setupLocation()
+        self.forecastView.errorView.delegate = self
         self.forecastDatasource = ForecastTableViewDatasource(forecast: ForecastViewModel(),
                                                               tableView: self.forecastView.tableView)
     }
@@ -89,10 +93,21 @@ extension ForecastViewController: LocationManagerDelegate {
     }
     
     func didEndLoadingLocation(with error: WeatherError) {
-        //
+        self.state = .error(error)
     }
     
     func didFinishLocationRequesting(with location: Location) {
-        self.requestData(with: location)
+        self.requestData(with: (location))
+    }
+}
+
+//MARK: - ErrorView, TodayView Delegates
+extension ForecastViewController: ErrorViewDelegate {
+    func refreshButtonTapped() {
+        self.locationManager.startRequestingLocation()
+    }
+    
+    func requestLocationSettings() {
+        self.showSettingsAlert()
     }
 }

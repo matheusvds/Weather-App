@@ -25,6 +25,7 @@ class ErrorView: UIView {
     lazy var background: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
+        imageView.image = Assets.unkownErrorImage.image
         return imageView
     }()
     
