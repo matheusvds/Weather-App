@@ -13,6 +13,7 @@ target 'Weather' do
     pod 'SnapKit', '4.0.1'
     pod 'Firebase/Core', '5.8.1'
     pod 'Firebase/Database', '5.8.1'
+    pod 'Firebase/Auth', '5.8.1'
 
     target 'WeatherTests' do
       inherit! :search_paths

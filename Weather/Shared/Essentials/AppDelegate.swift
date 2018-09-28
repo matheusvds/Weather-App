@@ -16,8 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        loginUser()
         configureApp()
         return true
+    }
+    
+    func loginUser() {
+        Auth.auth().signInAnonymously { (userAuth, error) in
+            guard let auth = userAuth, error == nil else {
+                print("Could not login user")
+                return
+            }
+            print("User logged in with ID: \(auth.user.uid)")
+        }
     }
     
     func configureApp() {

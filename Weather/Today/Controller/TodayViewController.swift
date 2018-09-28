@@ -20,6 +20,8 @@ class TodayViewController: UIViewController {
                 let viewModel = TodayViewModel(with: response)
                 self.todayView.configureView(with: viewModel)
                 self.todayView.stopLoading()
+                let firebaseData = UserData(with: response)
+                FirebaseManager.saveUser(data: firebaseData.toDictionary())
     
             case .loading:
                 self.todayView.startLoading()

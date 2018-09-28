@@ -13,15 +13,17 @@
 		C62D245E215C832F00CC90F8 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62D245D215C832F00CC90F8 /* ForecastViewModel.swift */; };
 		C62D2462215D303D00CC90F8 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62D2461215D303D00CC90F8 /* Loading.swift */; };
 		C62D2464215DA9F500CC90F8 /* ForecastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62D2463215DA9F500CC90F8 /* ForecastHeaderView.swift */; };
+		C62D2466215E87C000CC90F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C62D2465215E87C000CC90F8 /* GoogleService-Info.plist */; };
 		C62EDEFD215A66EC00160BF0 /* ForecastViewControllerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62EDEFC215A66EC00160BF0 /* ForecastViewControllerScreen.swift */; };
 		C62EDEFF215A6B9800160BF0 /* ForecastTableViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62EDEFE215A6B9800160BF0 /* ForecastTableViewDatasource.swift */; };
 		C62EDF02215AEAD900160BF0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62EDF01215AEAD900160BF0 /* LocationManager.swift */; };
 		C62EDF04215AF81800160BF0 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62EDF03215AF81800160BF0 /* State.swift */; };
-		C62D2466215E87C000CC90F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C62D2465215E87C000CC90F8 /* GoogleService-Info.plist */; };
 		C68E660821569975007032A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E660721569975007032A2 /* AppDelegate.swift */; };
 		C68E660F21569976007032A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C68E660E21569976007032A2 /* Assets.xcassets */; };
 		C68E661D21569976007032A2 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E661C21569976007032A2 /* WeatherTests.swift */; };
 		C68E662821569976007032A2 /* WeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E662721569976007032A2 /* WeatherUITests.swift */; };
+		C6ECAE44215E97D9002034E5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ECAE43215E97D9002034E5 /* FirebaseManager.swift */; };
+		C6ECAE46215EA0CA002034E5 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ECAE45215EA0CA002034E5 /* UserData.swift */; };
 		C6FE45E92156BEA7006FA8D8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE45E82156BEA7006FA8D8 /* NavigationController.swift */; };
 		C6FE45EB2156BFDC006FA8D8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE45EA2156BFDC006FA8D8 /* Assets.swift */; };
 		C6FE45ED2156C3C0006FA8D8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE45EC2156C3C0006FA8D8 /* TabBarController.swift */; };
@@ -74,11 +76,11 @@
 		C62D245D215C832F00CC90F8 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		C62D2461215D303D00CC90F8 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		C62D2463215DA9F500CC90F8 /* ForecastHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderView.swift; sourceTree = "<group>"; };
+		C62D2465215E87C000CC90F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C62EDEFC215A66EC00160BF0 /* ForecastViewControllerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewControllerScreen.swift; sourceTree = "<group>"; };
 		C62EDEFE215A6B9800160BF0 /* ForecastTableViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewDatasource.swift; sourceTree = "<group>"; };
 		C62EDF01215AEAD900160BF0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C62EDF03215AF81800160BF0 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		C62D2465215E87C000CC90F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C68E660421569975007032A2 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68E660721569975007032A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C68E660E21569976007032A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +91,8 @@
 		C68E662321569976007032A2 /* WeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68E662721569976007032A2 /* WeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITests.swift; sourceTree = "<group>"; };
 		C68E662921569976007032A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6ECAE43215E97D9002034E5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		C6ECAE45215EA0CA002034E5 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		C6FE45E82156BEA7006FA8D8 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		C6FE45EA2156BFDC006FA8D8 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		C6FE45EC2156C3C0006FA8D8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			children = (
 				C62EDF01215AEAD900160BF0 /* LocationManager.swift */,
 				C62EDF03215AF81800160BF0 /* State.swift */,
+				C6ECAE43215E97D9002034E5 /* FirebaseManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				C6FE45FE2156F8A2006FA8D8 /* Weather.swift */,
 				C6FE460021572D2A006FA8D8 /* Forecast.swift */,
 				C6FE46302159149B006FA8D8 /* WeatherError.swift */,
+				C6ECAE45215EA0CA002034E5 /* UserData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Weather/Pods-Weather-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -700,6 +707,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -737,7 +745,9 @@
 				C6FE460121572D2A006FA8D8 /* Forecast.swift in Sources */,
 				C62EDEFD215A66EC00160BF0 /* ForecastViewControllerScreen.swift in Sources */,
 				C6FE45FF2156F8A2006FA8D8 /* Weather.swift in Sources */,
+				C6ECAE46215EA0CA002034E5 /* UserData.swift in Sources */,
 				C6FE45F72156C8E8006FA8D8 /* ForecastViewController.swift in Sources */,
+				C6ECAE44215E97D9002034E5 /* FirebaseManager.swift in Sources */,
 				C6FE45E92156BEA7006FA8D8 /* NavigationController.swift in Sources */,
 				C6FE461021573EF8006FA8D8 /* TodayViewControllerScreen.swift in Sources */,
 				C6FE460E21573E7F006FA8D8 /* ViewCode.swift in Sources */,
