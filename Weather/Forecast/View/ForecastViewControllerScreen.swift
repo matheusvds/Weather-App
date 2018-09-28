@@ -28,7 +28,7 @@ class ForecastViewControllerScreen: UIView {
 
 extension ForecastViewControllerScreen: ViewCode {
     func buildViewHierarchy() {
-        addSubview(tableView)
+        addSubview(self.tableView)
     }
     
     func setupConstraints() {
@@ -38,5 +38,8 @@ extension ForecastViewControllerScreen: ViewCode {
         }
     }
     
-    
+    func setupAdditionalConfiguration() {
+        self.tableView.rowHeight = 90
+        self.tableView.separatorInset.left = 100
+    }
 }

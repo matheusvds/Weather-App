@@ -15,7 +15,8 @@ class ForecastViewController: UIViewController {
         didSet {
             switch state {
             case .ready(let forecast):
-                self.forecastDatasource?.reloadData(with: forecast)
+                let model = ForecastViewModel(data: forecast)
+                self.forecastDatasource?.reloadData(with: model)
             case .loading:
                 break
             case .error(let error):
@@ -46,11 +47,11 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        requestData(with: (lat: "37,332331", lon: "-122,406417"))
+        requestData(with: (lat: "37.332", lon: "-122.406"))
     }
     
     func setup() {
-        self.forecastDatasource = ForecastTableViewDatasource(forecast: [],
+        self.forecastDatasource = ForecastTableViewDatasource(forecast: ForecastViewModel(),
                                                               tableView: self.forecastView.tableView)
     }
     
@@ -67,6 +68,7 @@ class ForecastViewController: UIViewController {
                     self.state = .error(.unkown)
                 }
             case .failure(let error):
+                print(error)
                 self.state = .error(WeatherError(error: error))
             }
         }
