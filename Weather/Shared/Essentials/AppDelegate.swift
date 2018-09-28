@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func loginUser() {
         Auth.auth().signInAnonymously { (userAuth, error) in
-            guard let auth = userAuth, error == nil else {
+            guard let _ = userAuth, error == nil else {
                 print("Could not login user")
                 return
             }
-            print("User logged in with ID: \(auth.user.uid)")
+            print("User logged in")
         }
     }
     
