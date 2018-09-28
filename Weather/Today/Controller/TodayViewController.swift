@@ -58,7 +58,12 @@ class TodayViewController: UIViewController {
     }
     
     func setup() {
+        setupTitle()
         setupDelegates()
+    }
+    
+    func setupTitle() {
+        self.title = "Today"
     }
     
     func setupDelegates() {
