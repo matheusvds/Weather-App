@@ -20,14 +20,14 @@ extension LocationManagerDelegate {
     func didFound(city: String?, inCountry country: String?) {}
 }
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject {
     weak var delegate: LocationManagerDelegate?
     var bestEffortLocation: CLLocation?
     private var locationManager = CLLocationManager()
     
     override init() {
         super.init()
-        self.locationManager.delegate = self
+        self.setDelegate()
         self.configureLocation()
     }
     
@@ -36,30 +36,29 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.requestWhenInUseAuthorization()
     }
     
+    func setDelegate() {
+        self.locationManager.delegate = self
+    }
+    
+    func invalidateDelegate() {
+        self.locationManager.delegate = nil
+    }
+    
     func startRequestingLocation() {
         configureLocation()
         
         if CLLocationManager.locationServicesEnabled() {
             self.delegate?.didStartLoadingLocation()
-            self.locationManager.delegate = self
+            self.setDelegate()
             self.locationManager.startUpdatingLocation()
             return
         }
         self.delegate?.didEndLoadingLocation(with: .location)
     }
     
-    
-    
     func stopRequestingLocation() {
         self.locationManager.stopUpdatingLocation()
-        self.locationManager.delegate = nil
-    }
-    
-    fileprivate func findCityFor(location: CLLocation, completion: @escaping () -> ()) {
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
-            self.getLocationFor(placemarks: placemarks, with: error)
-            completion()
-        })
+        self.invalidateDelegate()
     }
     
     fileprivate func check(_ status: CLAuthorizationStatus) {
@@ -74,6 +73,26 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    fileprivate func findCityFor(location: CLLocation, completion: @escaping () -> ()) {
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+            self.getLocationFor(placemarks: placemarks, with: error)
+            completion()
+        })
+    }
+    
+    fileprivate func getLocationFor(placemarks: [CLPlacemark]?, with error: Error?) {
+        guard let country = placemarks?.first?.country,
+            let city = placemarks?.first?.locality, error == nil else {
+                self.delegate?.didFound(city: nil, inCountry: nil)
+                return
+        }
+        self.delegate?.didFound(city: city, inCountry: country)
+    }
+}
+
+//MARK: - CLLocationManager Delegate
+
+extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         check(status)
     }
@@ -105,14 +124,5 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
                 }
             }
         }
-    }
-    
-    fileprivate func getLocationFor(placemarks: [CLPlacemark]?, with error: Error?) {
-        guard let country = placemarks?.first?.country,
-            let city = placemarks?.first?.locality, error == nil else {
-                self.delegate?.didFound(city: nil, inCountry: nil)
-                return
-        }
-        self.delegate?.didFound(city: city, inCountry: country)
     }
 }
