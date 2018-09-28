@@ -19,14 +19,14 @@ target 'Weather' do
       inherit! :search_paths
       testing_pods
     end
-
-    target 'WeatherUITests' do
-      inherit! :search_paths
-      testing_pods
-    end
 end
 
 post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        if config.name == 'Release'
+            config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+        end
+    end
     installer.pods_project.targets.each do |target|
         if target.name == 'SnapKit'
             target.build_configurations.each do |config|
