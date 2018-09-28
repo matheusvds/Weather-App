@@ -18,9 +18,9 @@ class TodayViewController: UIViewController {
             switch state {
             case .ready(let response):
                 let viewModel = TodayViewModel(with: response)
-                self.todayView.stopLoading()
                 self.todayView.configureView(with: viewModel)
-
+                self.todayView.stopLoading()
+    
             case .loading:
                 self.todayView.startLoading()
                 

@@ -17,8 +17,10 @@ class ForecastViewController: UIViewController {
             case .ready(let forecast):
                 let model = ForecastViewModel(data: forecast)
                 self.forecastDatasource?.reloadData(with: model)
+                self.forecastView.stopLoading()
             case .loading:
-                break
+                self.forecastView.startLoading()
+                
             case .error(let error):
                 print(error)
                 break
