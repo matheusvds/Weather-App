@@ -66,8 +66,4 @@ extension ForecastHeaderView: ViewCode {
             make.height.equalTo(0.5)
         }
     }
-    
-    func setupAdditionalConfiguration() {
-        self.backgroundColor = .white
-    }
 }

@@ -66,8 +66,6 @@ struct ForecastViewModel {
                 dictionary.append(element: value, toValueOfKey: key)
             }
         }
-        print(dictionary.count)
-        print(dictionary.enumerated())
         
         return dictionary
     }
