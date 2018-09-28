@@ -25,7 +25,6 @@ struct TodayViewModel {
     var date: String = "-"
     var errorViewImage: UIImage? = Assets.internetErrorImage.image
     var errorKind: WeatherError?
-    var coordinate: (Double, Double) = (0.0, 0.0)
     
     init() {}
     
@@ -38,10 +37,9 @@ struct TodayViewModel {
         self.weatherInfo = self.format(weatherInfo: data.weather)
         self.weatherDescription = self.format(weatherDescription: data.weather)
         self.temperature = self.format(temperature: data.main.temp)
-        self.weatherStatus = "\(self.temperature)   |   \(self.weatherDescription.capitalized)"
+        self.weatherStatus = "\(self.temperature)   |   \(self.weatherInfo.capitalized)"
         self.date = self.format(date: data.dt)
         self.icon = find(iconIn: data.weather)
-        self.coordinate = getLocation(from: data.coord)
     }
     
     init(with error: WeatherError) {
@@ -54,10 +52,6 @@ struct TodayViewModel {
         case .unkown:
             self.errorViewImage = Assets.unkownErrorImage.image
         }
-    }
-    
-    fileprivate func getLocation(from coordinate: Coord) -> (Double, Double) {
-        return (coordinate.lat, coordinate.lon)
     }
     
     fileprivate func find(iconIn weatherInfo: [WeatherInfo]) -> UIImageView {
