@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,13 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        FirebaseApp.configure()
+        configureApp()
+        return true
+    }
+    
+    func configureApp() {
         let todayViewController = TodayViewController()
         let todayNavigationController = NavigationController(rootViewController: todayViewController)
-
+        
         let forecastViewController = ForecastViewController()
         let forecastNavigationController = NavigationController(rootViewController: forecastViewController)
-
+        
         let tabBarController = TabBarController(with: [todayNavigationController, forecastNavigationController])
         
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -28,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         window.makeKeyAndVisible()
-        return true
     }
 
 }
