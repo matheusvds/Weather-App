@@ -110,11 +110,8 @@ class TodayViewControllerScreen: UIView {
         return view
     }()
     
-    lazy var loading: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        view.backgroundColor = .white
-        view.animationImages = getLoadingImages()
+    lazy var loading: Loading = {
+        let view = Loading()
        return view
     }()
     
@@ -139,7 +136,7 @@ class TodayViewControllerScreen: UIView {
             self.humidity.label.text = model.humidity
             self.pressure.label.text = model.pressure
             self.precipitation.label.text = model.rainVolume
-            self.temperatureLabel.text = model.temperature
+            self.temperatureLabel.text = model.weatherStatus
             self.weatherImage.tintColor = model.icon.tintColor
             self.weatherImage.image = model.icon.image
         }
@@ -178,17 +175,7 @@ class TodayViewControllerScreen: UIView {
     @objc func shareButtonAction() {
         self.delegate?.shareButtonTapped()
     }
-    
-    fileprivate func getLoadingImages() -> [UIImage] {
-        var images = [UIImage]()
-        for index in 0...29 {
-            guard let image = UIImage(named: "loading\(index)") else {
-                break
-            }
-            images.append(image)
-        }
-        return images
-    }
+
 }
 
 extension TodayViewControllerScreen: ViewCode {
@@ -325,15 +312,6 @@ extension TodayViewControllerScreen: ViewCode {
         }
     }
     
-    func configureErrorView() {
-        errorView.snp.remakeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.height.equalToSuperview()
-            make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
     func setupAdditionalConfiguration() {
         self.backgroundColor = .white
         self.sendSubviewToBack(self.errorView)
@@ -353,5 +331,4 @@ extension TodayViewControllerScreen: ViewCode {
             return 2.0
         }
     }
-    
 }

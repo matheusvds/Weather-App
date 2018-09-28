@@ -26,6 +26,9 @@ class NavigationController: UINavigationController {
     private func setupAppearance() {
         self.navigationBar.isTranslucent = true
         self.navigationBar.backgroundColor = .white
-        self.navigationBar.tintColor = .black
+        self.navigationBar.tintColor = .darkThemeColor
+        let attributes = [NSAttributedString.Key.font: UIFont(name: FontWeight.semibold.name, size: 17.96)!]
+        UINavigationBar.appearance().titleTextAttributes = attributes
+
     }
 }

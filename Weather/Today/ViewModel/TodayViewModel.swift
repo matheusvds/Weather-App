@@ -20,8 +20,9 @@ struct TodayViewModel {
     var weatherInfo: String = "-"
     var weatherDescription: String = "-"
     var temperature: String = "-"
+    var weatherStatus: String = "-"
     var icon: UIImageView = UIImageView(frame: .zero)
-    var date: Date = Date()
+    var date: String = "-"
     var errorViewImage: UIImage? = Assets.internetErrorImage.image
     var errorKind: WeatherError?
     
@@ -35,7 +36,8 @@ struct TodayViewModel {
         self.pressure = self.format(pressure: data.main.pressure)
         self.weatherInfo = self.format(weatherInfo: data.weather)
         self.weatherDescription = self.format(weatherDescription: data.weather)
-        self.temperature = self.format(temperature: data.main.temp, with: data.weather)
+        self.temperature = self.format(temperature: data.main.temp)
+        self.weatherStatus = "\(self.temperature)   |   \(self.weatherDescription.capitalized)"
         self.date = self.format(date: data.dt)
         self.icon = find(iconIn: data.weather)
     }
@@ -50,14 +52,6 @@ struct TodayViewModel {
         case .unkown:
             self.errorViewImage = Assets.unkownErrorImage.image
         }
-    }
-    
-    func getLocationFor(placemarks: [CLPlacemark]?, with error: Error?) -> String {
-        guard let country = placemarks?.first?.country,
-              let city = placemarks?.first?.locality, error == nil else {
-            return "Couldn't find your location"
-        }
-        return "\(city.capitalized), \(country.capitalized)"
     }
     
     fileprivate func find(iconIn weatherInfo: [WeatherInfo]) -> UIImageView {
@@ -92,9 +86,10 @@ struct TodayViewModel {
     }
     
     
-    fileprivate func format(temperature: Double, with weatherInfo: [WeatherInfo]) -> String {
-        return "\(Int(temperature)) °C | \(self.format(weatherInfo: weatherInfo))"
+    fileprivate func format(temperature: Double) -> String {
+        return "\(Int(temperature))°C"
     }
+    
     
     fileprivate func format(direction: Double) -> String {
         let directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
@@ -103,8 +98,12 @@ struct TodayViewModel {
         return "\(directions[index])"
     }
     
-    fileprivate func format(date: Int) -> Date {
-        return Date(timeIntervalSince1970: TimeInterval(date))
+    fileprivate func format(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE dd/MM/yy,HH:mm"
+
+        return dateFormatter.string(from: date)
     }
     
     fileprivate func format(weatherInfo: [WeatherInfo]) -> String {
@@ -118,7 +117,7 @@ struct TodayViewModel {
     }
     
     fileprivate func format(weatherDescription: [WeatherInfo]) -> String {
-        guard let info = weatherInfo.first else { return "-" }
-        return info.description
+        guard let info = weatherDescription.first else { return "-" }
+        return info.description.capitalized
     }
 }
