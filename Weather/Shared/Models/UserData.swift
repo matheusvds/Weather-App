@@ -10,12 +10,12 @@ import Foundation
 
 
 struct UserData {
-    let location: (String, String)
-    let temperature: String
+    let location: (Double, Double)
+    let temperature: Double
     
     init(with weather: Weather) {
-        self.location = (String(weather.coord.lat),  String(weather.coord.lon))
-        self.temperature = String(weather.main.temp)
+        self.location = (weather.coord!.lat, weather.coord!.lon)
+        self.temperature = weather.main.temp
     }
     
     func toDictionary() -> [String : Any] {
