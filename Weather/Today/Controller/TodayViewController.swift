@@ -100,7 +100,7 @@ class TodayViewController: UIViewController {
         })
         
         let forecastNav = navigation as? UINavigationController
-        forecastNav?.visibleViewController?.title = title
+        forecastNav?.visibleViewController?.navigationItem.title = title
     }
 }
 
