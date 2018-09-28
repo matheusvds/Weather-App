@@ -37,7 +37,7 @@ struct TodayViewModel {
         self.weatherInfo = self.format(weatherInfo: data.weather)
         self.weatherDescription = self.format(weatherDescription: data.weather)
         self.temperature = self.format(temperature: data.main.temp)
-        self.weatherStatus = "\(self.temperature)   |   \(self.weatherDescription.capitalized)"
+        self.weatherStatus = "\(self.temperature)   |   \(self.weatherInfo.capitalized)"
         self.date = self.format(date: data.dt)
         self.icon = find(iconIn: data.weather)
     }

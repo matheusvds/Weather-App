@@ -14,6 +14,12 @@ struct Weather: Codable {
     let wind: Wind
     let dt: Int
     let rain: Rain?
+    let coord: Coord?
+}
+
+struct Coord: Codable {
+    let lat: Double
+    let lon: Double
 }
 
 struct Rain: Codable {
