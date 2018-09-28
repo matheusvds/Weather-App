@@ -10,8 +10,6 @@ import Foundation
 
 public enum PlistKey {
     case ServerURL
-    case TimeoutInterval
-    case ConnectionProtocol
     
     func value() -> String {
         switch self {
