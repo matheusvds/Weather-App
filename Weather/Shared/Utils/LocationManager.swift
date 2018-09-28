@@ -39,6 +39,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         configureLocation()
         if CLLocationManager.locationServicesEnabled() {
             self.delegate?.didStartLoadingLocation()
+            self.locationManager.delegate = self
             self.locationManager.startUpdatingLocation()
             return
         }

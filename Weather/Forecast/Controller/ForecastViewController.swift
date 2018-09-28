@@ -31,6 +31,7 @@ class ForecastViewController: UIViewController {
     var provider: MoyaProvider<OpenWeatherMap>
     let forecastView = ForecastViewControllerScreen()
     var forecastDatasource: ForecastTableViewDatasource?
+    var locationManager = LocationManager()
     
     init(provider: MoyaProvider<OpenWeatherMap> = MoyaProvider<OpenWeatherMap>()) {
         self.provider = provider
@@ -49,12 +50,17 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        requestData(with: (lat: "37.332", lon: "-122.406"))
     }
     
     func setup() {
+        setupLocation()
         self.forecastDatasource = ForecastTableViewDatasource(forecast: ForecastViewModel(),
                                                               tableView: self.forecastView.tableView)
+    }
+    
+    func setupLocation() {
+        self.locationManager.delegate = self
+        self.locationManager.startRequestingLocation()
     }
     
     func requestData(with location: Location) {
@@ -74,5 +80,19 @@ class ForecastViewController: UIViewController {
                 self.state = .error(WeatherError(error: error))
             }
         }
+    }
+}
+
+extension ForecastViewController: LocationManagerDelegate {
+    func didStartLoadingLocation() {
+        self.state = .loading
+    }
+    
+    func didEndLoadingLocation(with error: WeatherError) {
+        //
+    }
+    
+    func didFinishLocationRequesting(with location: Location) {
+        self.requestData(with: location)
     }
 }
