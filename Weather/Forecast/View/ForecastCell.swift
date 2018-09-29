@@ -94,5 +94,9 @@ extension ForecastCell: ViewCode {
             make.centerY.equalToSuperview()
         }
     }
+    
+    func setupAdditionalConfiguration() {
+        self.selectionStyle = .none
+    }
 }
 

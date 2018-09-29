@@ -19,7 +19,8 @@ public enum OpenWeatherMap {
 
 extension OpenWeatherMap: TargetType {
     public var baseURL: URL {
-        return URL(string: "http://api.openweathermap.org/data/2.5")!
+        let serverURL = Environment().configuration(PlistKey.ServerURL)
+        return URL(string: "http://\(serverURL)/data/2.5")!
     }
     
     public var path: String {

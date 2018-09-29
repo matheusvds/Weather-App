@@ -1,0 +1,13 @@
+//
+//  Production.xcconfig
+//  Weather
+//
+//  Created by Matheus Vasconcelos on 28/09/18.
+//  Copyright © 2018 Matheus Sousa. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+
+server_URL = api.openweathermap.org

@@ -23,9 +23,9 @@ end
 
 post_install do |installer|
     installer.pods_project.build_configurations.each do |config|
-        if config.name == 'Release'
-            config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
-        end
+        config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+        config.build_settings['ENABLE_TESTABILITY'] = 'YES'
     end
     installer.pods_project.targets.each do |target|
         if target.name == 'SnapKit'
