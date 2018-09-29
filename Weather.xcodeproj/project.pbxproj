@@ -21,14 +21,6 @@
 		C6849CBC215ED1C500987FB1 /* LocationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6849CBB215ED1C500987FB1 /* LocationManagerSpec.swift */; };
 		C68E660821569975007032A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68E660721569975007032A2 /* AppDelegate.swift */; };
 		C68E660F21569976007032A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C68E660E21569976007032A2 /* Assets.xcassets */; };
-		C6AF7180215EEC6100AEFB52 /* UAT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717F215EEC4500AEFB52 /* UAT.xcconfig */; };
-		C6AF7181215EEC6200AEFB52 /* UAT.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717F215EEC4500AEFB52 /* UAT.xcconfig */; };
-		C6AF7182215EEC6400AEFB52 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717E215EEBF600AEFB52 /* Development.xcconfig */; };
-		C6AF7183215EEC6500AEFB52 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717E215EEBF600AEFB52 /* Development.xcconfig */; };
-		C6AF7184215EEC6700AEFB52 /* Production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717C215EEB2700AEFB52 /* Production.xcconfig */; };
-		C6AF7185215EEC6700AEFB52 /* Production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF717C215EEB2700AEFB52 /* Production.xcconfig */; };
-		C6AF718B215EEE4300AEFB52 /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF7186215EEC7500AEFB52 /* QA.xcconfig */; };
-		C6AF718C215EEE4300AEFB52 /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C6AF7186215EEC7500AEFB52 /* QA.xcconfig */; };
 		C6AF718E215EF0A800AEFB52 /* Enviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF718D215EF0A800AEFB52 /* Enviroment.swift */; };
 		C6AF7192215EF23600AEFB52 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6AF7191215EF23600AEFB52 /* Default-568h@2x.png */; };
 		C6ECAE44215E97D9002034E5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ECAE43215E97D9002034E5 /* FirebaseManager.swift */; };
@@ -598,17 +590,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6AF718B215EEE4300AEFB52 /* QA.xcconfig in Resources */,
 				C6AF7192215EF23600AEFB52 /* Default-568h@2x.png in Resources */,
 				C6FE461E2158014F006FA8D8 /* ProximaNova-Bold.otf in Resources */,
 				C6FE461F2158014F006FA8D8 /* ProximaNova-Regular.otf in Resources */,
-				C6AF7184215EEC6700AEFB52 /* Production.xcconfig in Resources */,
 				C6FE46202158014F006FA8D8 /* ProximaNova-Semibold.otf in Resources */,
 				C68E660F21569976007032A2 /* Assets.xcassets in Resources */,
 				C6FE461D2158014F006FA8D8 /* ProximaNova-Light.otf in Resources */,
 				C62D2466215E87C000CC90F8 /* GoogleService-Info.plist in Resources */,
-				C6AF7182215EEC6400AEFB52 /* Development.xcconfig in Resources */,
-				C6AF7180215EEC6100AEFB52 /* UAT.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,11 +604,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6AF7181215EEC6200AEFB52 /* UAT.xcconfig in Resources */,
-				C6AF7185215EEC6700AEFB52 /* Production.xcconfig in Resources */,
 				C6ECAE54215EC60C002034E5 /* forecast.json in Resources */,
-				C6AF7183215EEC6500AEFB52 /* Development.xcconfig in Resources */,
-				C6AF718C215EEE4300AEFB52 /* QA.xcconfig in Resources */,
 				C6ECAE53215EC60C002034E5 /* current.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -897,6 +881,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -908,6 +893,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
