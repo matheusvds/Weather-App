@@ -91,7 +91,8 @@ struct TodayViewModel {
     }
     
     
-    fileprivate func format(direction: Double) -> String {
+    fileprivate func format(direction: Double?) -> String {
+        guard let direction = direction else { return "-" }
         let directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
         let index = Int((direction / 45).rounded()) % 8
         if index >= directions.count { return "-" }
