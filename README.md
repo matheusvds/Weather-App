@@ -31,6 +31,14 @@ git clone https://github.com/matheusvds/Weather-App.git
 pod install
 ```
 
+## Comments
+
+- In an effort to show my skills, I developed the whole app using View Code, so all the views were created programmatically. (I won't say if this is better or worse, but it has its advantages when working in big projects and give you more knowledge of whats is going on behind the scenes. Anyways, just wanted to show a nice skill here :D) There's a nice post from a colleague [here](https://medium.com/cocoaacademymag/storyboard-no-more-crafting-coding-a-custom-uiview-de166b0cac5).
+
+- Also, I usually don't use pod for networking, I write my own code as you can see [here](https://github.com/matheusvds/iOS-Photos/tree/master/BlendleiOSAssignment/Shared/Networking) and the tests [here](https://github.com/matheusvds/iOS-Photos/tree/master/BlendleiOSAssignmentTests/Network), because it's easier to tweak, test, debug and mantain. But seeing  STRV's stack for iOS, I decided to use [Moya](https://github.com/Moya/Moya) which is built on top of **Alamofire**. I have never used Moya before, but even so I decided to use it because some friends used in their projects and I noticed it makes the network abstraction layer to become super clean and I loved it. 
+
+
+
 ### Enviroments
 
 - Development
